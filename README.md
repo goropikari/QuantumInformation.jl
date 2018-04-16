@@ -9,6 +9,10 @@
 This is unofficial extension of [QuantumOptics.jl](https://github.com/qojulia/QuantumOptics.jl).  
 Add some quantum gates.
 
+**Example**
+- [Quantum teleportation](https://nbviewer.jupyter.org/github/goropikari/QuantumInformation.jl/blob/master/examples/quantum_teleportation.ipynb)
+
+
 By default, `QuantumOptics.set_printing(standard_order=true)`.  
 ref: [QuantumOptics.jl documentation - Operator data and tensor products](https://qojulia.org/documentation/quantumobjects/operators.html#tensor_order-1)
 
