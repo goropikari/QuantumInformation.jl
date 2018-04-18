@@ -4,6 +4,10 @@ export outer, inner, qubit, sparse_spinallup_dm, sparse_spinalldown_dm, ghz, mea
 
 isapprox(x::Ket, y::Ket) = (x.basis == y.basis) && x.data ≈ y.data
 isapprox(x::Bra, y::Bra) = (x.basis == y.basis) && x.data ≈ y.data
+isapprox(x::SparseOperator, y::SparseOperator) = (x.basis_l == y.basis_l) && (x.basis_r == y.basis_r) && x.data ≈ y.data
+isapprox(x::DenseOperator, y::DenseOperator) = (x.basis_l == y.basis_l) && (x.basis_r == y.basis_r) && x.data ≈ y.data
+isapprox(x::SparseOperator, y::DenseOperator) = (x.basis_l == y.basis_l) && (x.basis_r == y.basis_r) && x.data ≈ y.data
+isapprox(x::DenseOperator, y::SparseOperator) = (x.basis_l == y.basis_l) && (x.basis_r == y.basis_r) && x.data ≈ y.data
 
 ctranspose(op::QuantumOptics.particle.FFTKets) = dagger(op::QuantumOptics.particle.FFTKets)
 ctranspose(op::QuantumOptics.particle.FFTOperators) = dagger(op::QuantumOptics.particle.FFTOperators)
