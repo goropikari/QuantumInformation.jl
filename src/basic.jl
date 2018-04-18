@@ -1,6 +1,6 @@
 import Base: isapprox, ctranspose
 import StatsBase: sample, pweights
-export outer, inner, sparse_spinallup_dm, sparse_spinalldown_dm, ghz, measure
+export outer, inner, qubit, sparse_spinallup_dm, sparse_spinalldown_dm, ghz, measure
 
 isapprox(x::Ket, y::Ket) = (x.basis == y.basis) && x.data ≈ y.data
 isapprox(x::Bra, y::Bra) = (x.basis == y.basis) && x.data ≈ y.data
@@ -18,11 +18,62 @@ ctranspose(a::QuantumOptics.operators.Operator) = dagger(a::QuantumOptics.operat
 
 outer(x::QuantumOptics.states.Ket, y::QuantumOptics.states.Ket) = x ⊗ y'
 inner(x::QuantumOptics.states.Ket, y::QuantumOptics.states.Ket) = x' * y
+
+"""
+    qubit(x)
+
+Prepare n-qubit state from binary.
+
+# Example
+```julia
+julia> qubit("010")
+Ket(dim=8)
+  basis: [Spin(1/2) ⊗ Spin(1/2) ⊗ Spin(1/2)]
+ 0.0+0.0im
+ 0.0+0.0im
+ 1.0+0.0im
+ 0.0+0.0im
+ 0.0+0.0im
+ 0.0+0.0im
+ 0.0+0.0im
+ 0.0+0.0im
+```
+"""
+function qubit(x::String)
+    nq = length(x)
+    ar = split(x, "")
+    basis = SpinBasis(1//2)
+    up, down = spinup(basis), spindown(basis)
+
+    function bin2state(x)
+        ifelse( x == "0", up, down )
+    end
+
+    return tensor( bin2state.(ar)... )
+end
+
+"""
+    sparse_spinallup_dm(n)
+
+n qubits all up state density matrix
+```math
+| 0 \\rangle^{\\otimes n}
+```
+"""
 function sparse_spinallup_dm(n::Int)
        x = spzeros(Complex{Float64}, 2^n, 2^n)
        x[1,1] = 1. + 0im
        return SparseOperator(SpinBasis(1//2)^n, x)
 end
+
+"""
+    sparse_spinalldown_dm(n)
+
+n qubits all up state density matrix
+```math
+| 1 \\rangle^{\\otimes n}
+```
+"""
 function sparse_spinalldown_dm(n::Int)
        x = spzeros(Complex{Float64}, 2^n, 2^n)
        x[2^n,2^n] = 1. + 0im
