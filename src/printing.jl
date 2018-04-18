@@ -158,7 +158,7 @@ function _aa(x::Union{Ket,Bra})
 
     return str
 end
-"make markdown from Operator"
+"make ascii art from Operator"
 function _aa(x::T) where T <: Operator
     nq = x.basis_l |> length |> log2 |> Int
     isfirstterm = true
