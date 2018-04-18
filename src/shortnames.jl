@@ -11,10 +11,17 @@ const U1 = phaseshift
 """
     U2(ϕ::Real, λ::Real)
 
-Equivalent to `sigleunitary(π/2, ϕ, λ)`.
+Equivalent to `singleunitary(π/2, ϕ, λ)`.
+
+```math
+U(\\phi, \\lambda) = \\frac{1}{\\sqrt{2}} \\begin{bmatrix}
+       1 & -e^{i \\lambda} \\\\
+       e^{i \\phi} & e^{i (\\lambda + \\phi)}
+\\end{bmatrix}
+```
 """
-U2(ϕ::Real, λ::Real) = sigleunitary(π/2, ϕ, λ)
-const U3 = sigleunitary
+U2(ϕ::Real, λ::Real) = singleunitary(π/2, ϕ, λ)
+const U3 = singleunitary
 const CU = controlsgate
 const CNOT = cnot
 const CCX = toffoli
