@@ -26,6 +26,7 @@ function tex(x::Union{Ket,Bra}, msg::AbstractString="")
     end
 end
 
+"make markdown from Bra and Ket"
 function _md(x::Union{Ket,Bra})
     nq = length(x.basis.shape)
     isfirstterm = true
@@ -66,6 +67,7 @@ function _md(x::Union{Ket,Bra})
     return str
 end
 
+"make ascii art from Bra and Ket"
 function _aa(x::Union{Ket,Bra})
     nq = length(x.basis.shape)
     isfirstterm = true

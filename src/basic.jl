@@ -117,7 +117,7 @@ end
     measure(state, n)
 
 Projective measurement with standard basis.
-Measure nth qubit w.r.t standard basis.
+Measure n th qubit w.r.t standard basis.
 
 Return outcome (0 or 1) and post-meamurement state
 """

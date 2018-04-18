@@ -28,8 +28,6 @@ export Basis                  , basis                   , logarithmic_negativity
        SuperOperator          , identityoperator        , polynomials             , spinup,
        bases                  , liouvillian             , position                , spost
 
-# new defined functions
-
 
 QuantumOptics.set_printing(standard_order=true)
 # The reasons why the order of tensor product is inverted.
