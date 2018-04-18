@@ -7,14 +7,18 @@
 [![codecov.io](http://codecov.io/github/goropikari/QuantumInformation.jl/coverage.svg?branch=master)](http://codecov.io/github/goropikari/QuantumInformation.jl?branch=master)
 
 This is unofficial extension of [QuantumOptics.jl](https://github.com/qojulia/QuantumOptics.jl).  
-Add some quantum gates.
+**Features**
+ - Add some quantum gates for qubits (spin 1/2)
+ - You can take complex conjugate transpose (dagger) by single-quote `'`.
 
 **Example**
 - [Quantum teleportation](https://nbviewer.jupyter.org/github/goropikari/QuantumInformation.jl/blob/master/examples/quantum_teleportation.ipynb)
 
 
-By default, `QuantumOptics.set_printing(standard_order=true)`.  
-ref: [QuantumOptics.jl documentation - Operator data and tensor products](https://qojulia.org/documentation/quantumobjects/operators.html#tensor_order-1)
+By default, the matrix entries are printed by standard order,  `QuantumOptics.set_printing(standard_order=true)`.
+But the data itself are stored reversed order.  
+In detail, please read QuantumOptics.jl official documentation: [QuantumOptics.jl documentation - Operator data and tensor products](https://qojulia.org/documentation/quantumobjects/operators.html#tensor_order-1)  
+
 
 # Installation
 ```julia
@@ -22,7 +26,7 @@ Pkg.clone("https://github.com/goropikari/QuantumInformation.jl")
 ```
 
 # Usage
-Supported single qubit gates are following.
+Supported single qubit (spin 1/2) gates are following.
 
 
 ## Pauli matrix
