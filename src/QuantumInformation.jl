@@ -189,14 +189,18 @@ end
        controlsgate(N, controls, target, op)
 """
 function controlsgate(N::Int, controls::Vector{Int}, target::Int, op::QuantumOptics.operators.Operator)
-       nc = length(controls)
+       nc = length(controls) # number of control qubits
 
-       N < nc + 1 && error()
-       isempty(controls) && error()
-       target ∈ controls && error()
+       N < nc + 1 && throw("the number of qubits must be larger or equal to $(maximum(vcat(controls, target)))")
+       isempty(controls) && error("you don\'t specify control qubits.")
+       target ∈ controls && error("target qubit overlaps a control qubit.")
+       (target < 1 || target > N) && error("target qubit is out of bound.")
 
+       if !issorted(controls)
+              sort!(controls)
+       end
        basis = SpinBasis(1//2)
-       ctrlstate = sparse_spinalldown_dm(nc) # |11...1><11...1| controls
+       ctrlstate = sparse_spinalldown_dm(nc) # |11...1><11...1|
        if N == nc + 1
               # (I - |1...1><1...1|) ⊗ I + |1...1><1...1| ⊗ op
               basicstate = (identityoperator(basis^nc) - ctrlstate) ⊗ identityoperator(basis) + ctrlstate ⊗ op
@@ -229,41 +233,9 @@ cnot(N::Int=2, control=1, target=2) = controlsgate(N, [control], target, sigmax(
 """
 function toffoli(N::Int=3, controls::Vector{Int}=[1, 2], target::Int=3)
        if N < 3
-              error()
+              error("the number of qubits must be larger or equal to 3.")
        end
        return controlsgate(N, controls, target, sigmax())
 end
-# function cnot(N::Int=2, control=1, target=2)
-#        a = [identityoperator(SpinBasis(1//2)) for i in 1:N]
-#        b = copy(a)
-#        a[control] = sparsespinup()
-#        b[control] = sparsespindown()
-#        b[target] = sigmax()
-#        return tensor(a...) + tensor(b...)
-# end
-# function cnot2(N::Int=2, control=1, target=2)
-#        basis = SpinBasis(1//2)
-#        CNOT = begin
-#               x = spzeros(Complex{Float64}, 4, 4)
-#               x[1,1] = 1. + 0im
-#               x[4,2] = 1. + 0im
-#               x[3,3] = 1. + 0im
-#               x[2,4] = 1. + 0im
-#               SparseOperator(basis^2, x)
-#        end
-#        if N == 2
-#               if control == 1
-#                      return CNOT
-#               else
-#                      return permutesystems(CNOT, [2,1])
-#               end
-#        end
-#        basicstate = tensor( vcat([identityoperator(basis) for i in 1:N-2], CNOT)... )
-#        perm = collect(1:N)
-#        perm[control], perm[N-1] = perm[N-1], perm[control]
-#        perm[target], perm[N] = perm[N], perm[target]
-#
-#        return permutesystems(basicstate, perm)
-# end
 
 end # module
