@@ -38,6 +38,7 @@ QuantumOptics.set_printing(standard_order=true)
 # https://qojulia.org/documentation/quantumobjects/operators.html#tensor_order-1
 
 include("gates.jl")
+include("printing.jl")
 
 ctranspose(op::QuantumOptics.particle.FFTKets) = dagger(op::QuantumOptics.particle.FFTKets)
 ctranspose(op::QuantumOptics.particle.FFTOperators) = dagger(op::QuantumOptics.particle.FFTOperators)
