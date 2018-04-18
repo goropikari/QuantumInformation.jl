@@ -1,6 +1,32 @@
 export tex
 
+"""
+    tex(x, [msg])
+
+LaTeX rendering for ket and bra.
+
+# Example
+```julia
+julia> id = identityoperator(SpinBasis(1//2));
+
+julia> cnot() * (hadamard() ⊗ id) * qubit("00") |> tex
+|ψ> = 0.707|00> + 0.707|11>
+```
+"""
 function tex(x::Union{Ket,Bra}, msg::AbstractString="")
+    try
+        msg != "" && display(msg)
+        # display("text/latex", "\$\$" * str * "\$\$") # for IJulia
+        str = _md(x)
+        display("text/latex", "\$" * str * "\$") # for IJulia
+    catch
+        # println("\$\$" * str * "\$\$") # for REPL
+        str = _aa(x)
+        println(str) # for REPL
+    end
+end
+
+function _md(x::Union{Ket,Bra})
     nq = length(x.basis.shape)
     isfirstterm = true
     perm = collect(reverse(1:nq))
@@ -21,7 +47,7 @@ function tex(x::Union{Ket,Bra}, msg::AbstractString="")
             if isfirstterm
                 isfirstterm = false
                 if value == 1.
-                    str *= " $(braket[1]) $(bin(idx-1, nq)) $(braket[2])"
+                    str *= "$(braket[1]) $(bin(idx-1, nq)) $(braket[2])"
                 else
                     str *= "$(n2s(ent)) $(braket[1]) $(bin(idx-1, nq)) $(braket[2])"
                 end
@@ -36,15 +62,56 @@ function tex(x::Union{Ket,Bra}, msg::AbstractString="")
             end
         end
     end
-    try
-        msg != "" && display(msg)
-        # display("text/latex", "\$\$" * str * "\$\$") # for IJulia
-        display("text/latex", "\$" * str * "\$") # for IJulia
-    catch
-        println("\$\$" * str * "\$\$") # for REPL
-    end
+
+    return str
 end
 
+function _aa(x::Union{Ket,Bra})
+    nq = length(x.basis.shape)
+    isfirstterm = true
+    perm = collect(reverse(1:nq))
+    if nq != 1
+        x = permutesystems(x, perm)
+    end
+    data = x.data
+    braket = Dict(Ket=>["|", ">"], Bra=>["<", "|"])[typeof(x)]
+
+    str = "$(braket[1])ψ$(braket[2]) = "
+    for (idx, ent) in enumerate(data)
+        if ent ≈ 1
+            value = 1.0
+        else
+            value = ent
+        end
+        if !(ent ≈ 0)
+            if isfirstterm
+                isfirstterm = false
+                if value == 1.
+                    str *= "$(braket[1])$(bin(idx-1, nq))$(braket[2])"
+                else
+                    str *= "$(n2s(ent))$(braket[1])$(bin(idx-1, nq))$(braket[2])"
+                end
+            else
+                if value == 1.0
+                    str *= " + $(braket[1])$(bin(idx-1, nq))$(braket[2])"
+                elseif n2s(ent)[1] == '-'
+                    str *= " $(n2s(ent))$(braket[1])$(bin(idx-1, nq))$(braket[2])"
+                else
+                    str *= " + $(n2s(ent))$(braket[1])$(bin(idx-1, nq))$(braket[2])"
+                end
+            end
+        end
+    end
+
+    return str
+end
+
+
+"""
+    n2s(x)
+
+number to string for tex function.
+"""
 function n2s(x)
     str = ""
     if typeof(x) <: Real
