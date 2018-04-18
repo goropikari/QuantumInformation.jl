@@ -1,3 +1,5 @@
+export hadamard, sgate, sdggate, tgate, tdggate, phaseshift, controlsgate, cnot, toffoli
+
 # quantum circuit gates
 sigmam() = sigmam(SpinBasis(1//2))
 sigmap() = sigmap(SpinBasis(1//2))

@@ -1,7 +1,6 @@
 module QuantumInformation
 
 # package code goes here
-import Base: ctranspose
 using QuantumOptics
 import QuantumOptics: sigmam, sigmap, sigmax, sigmay, sigmaz
 export Basis                  , basis                   , logarithmic_negativity  , potentialoperator       , spre,
@@ -30,7 +29,7 @@ export Basis                  , basis                   , logarithmic_negativity
        bases                  , liouvillian             , position                , spost
 
 # new defined functions
-export outer, inner, ghz, sparse_spinallup_dm, sparse_spinalldown_dm, hadamard, sgate, sdggate, tgate, tdggate, phaseshift, controlsgate, cnot, toffoli
+
 
 QuantumOptics.set_printing(standard_order=true)
 # The reasons why the order of tensor product is inverted.
