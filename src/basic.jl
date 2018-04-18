@@ -1,3 +1,5 @@
+import StatsBase: sample, pweights
+
 ctranspose(op::QuantumOptics.particle.FFTKets) = dagger(op::QuantumOptics.particle.FFTKets)
 ctranspose(op::QuantumOptics.particle.FFTOperators) = dagger(op::QuantumOptics.particle.FFTOperators)
 ctranspose(op::QuantumOptics.operators_lazytensor.LazyTensor) = dagger(op::QuantumOptics.operators_lazytensor.LazyTensor)
@@ -52,4 +54,31 @@ function ghz(n::Int=3)
        state = basisstate(b, 1) + basisstate(b, 2^n)
        normalize!(state)
        return state
+end
+
+
+"""
+    measure(state, n)
+
+Projective measurement with standard basis.
+Measure nth qubit w.r.t standard basis.
+
+Return outcome (0 or 1) and post-meamurement state
+"""
+function measure(state, n)
+    nqubit = state.basis.shape |> length
+    mops = [identityoperator(SpinBasis(1//2)) for i in 1:nqubit]
+    mops[n] = spinup(SpinBasis(1//2)) |> dm |> sparse
+    mop = tensor(mops...)
+    p = real( trace( mop * dm(state) ) )
+
+    outcome = sample(0:1, pweights([p, 1-p]))
+    if outcome == 0
+        state = mop * state / sqrt(p)
+    else
+        mops[n] = spindown(SpinBasis(1//2)) |> dm |> sparse
+        mop = tensor(mops...)
+        state = mop * state / sqrt(1-p)
+    end
+    return outcome, state
 end
