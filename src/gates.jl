@@ -1,19 +1,74 @@
-export hadamard, sgate, sdggate, tgate, tdggate, phaseshift, sigleunitary,
+export hadamard, sgate, sdggate, tgate, tdggate, phaseshift, singleunitary,
        controlsgate, cnot, toffoli, swap
 
 # quantum circuit gates
-sigmam() = sigmam(SpinBasis(1//2))
-sigmap() = sigmap(SpinBasis(1//2))
+"""
+```math
+\\sigma_x = \\begin{bmatrix}
+       0 & 1 \\\\
+       1 & 0
+\\end{bmatrix}
+```
+"""
 sigmax() = sigmax(SpinBasis(1//2))
+
+"""
+```math
+\\sigma_y = \\begin{bmatrix}
+       0 & -i \\\\
+       i & 0
+\\end{bmatrix}
+```
+"""
 sigmay() = sigmay(SpinBasis(1//2))
+
+"""
+```math
+\\sigma_z = \\begin{bmatrix}
+       1 & 0 \\\\
+       0 & -1
+\\end{bmatrix}
+```
+"""
 sigmaz() = sigmaz(SpinBasis(1//2))
+
+"""
+```math
+\\sigma_- = | 1 \\rangle \\langle 0 | = \\begin{bmatrix}
+       0 & 0 \\\\
+       1 & 0
+\\end{bmatrix}
+```
+"""
+sigmam() = sigmam(SpinBasis(1//2))
+
+"""
+```math
+\\sigma_+ = | 0 \\rangle \\langle 1 | = \\begin{bmatrix}
+       0 & 1 \\\\
+       0 & 0
+\\end{bmatrix}
+```
+"""
+sigmap() = sigmap(SpinBasis(1//2))
+
+"""
+       hadamard(n::Int=1)
+
+```math
+H^{\\otimes n} = \\frac{1}{\\sqrt{2^n}} \\begin{bmatrix}
+       1 & 1 \\\\
+       1 & -1
+\\end{bmatrix}^{\\otimes n}
+```
+"""
 hadamard(n::Int=1) = tensor([DenseOperator(SpinBasis(1//2), 1/sqrt(2)*[1 1; 1 -1]) for i in 1:n]...)
 
 """
        sgate()
 
 ```math
-S = \\begin{bmatrix}
+S = \\sqrt{\\sigma_z} = \\begin{bmatrix}
        1 & 0 \\\\
        0 & i
 \\end{bmatrix}
@@ -30,7 +85,7 @@ end
        sdggate()
 
 ```math
-S^\\dagger = \\begin{bmatrix}
+S^\\dagger = (\\sqrt{\\sigma_z})^\\dagger = \\begin{bmatrix}
        1 & 0 \\\\
        0 & -i
 \\end{bmatrix}
@@ -49,7 +104,7 @@ end
 ```math
 T = \\begin{bmatrix}
        1 & 0 \\\\
-       0 & \\frac{1 + i}{\\sqrt{2}}
+       0 & \\exp(i \\pi/4)
 \\end{bmatrix}
 ```
 """
@@ -66,7 +121,7 @@ end
 ```math
 T^\\dagger = \\begin{bmatrix}
        1 & 0 \\\\
-       0 & \\frac{1 - i}{\\sqrt{2}}
+       0 & \\exp(- i \\pi/4)
 \\end{bmatrix}
 ```
 """
@@ -95,8 +150,17 @@ function phaseshift(λ::Real)
        return SparseOperator(SpinBasis(1//2), x)
 end
 
+"""
+       singleunitary(θ, ϕ, λ)
 
-function sigleunitary(θ, ϕ, λ)
+```math
+U(\\theta, \\phi, \\lambda) = \\begin{bmatrix}
+       \\cos(\\theta/2) & -e^{i \\lambda}\\sin(\\theta/2) \\\\
+       e^{i \\phi}\\sin(\\theta/2) & e^{i (\\lambda + \\phi)} \\cos(\\theta/2)
+\\end{bmatrix}
+```
+"""
+function singleunitary(θ, ϕ, λ)
        x = spzeros(Complex{Float64}, 2, 2)
        x[1,1] = cos(θ/2)
        x[1,2] = - exp(im * λ) * sin(θ/2)
