@@ -1,4 +1,9 @@
+import Base: isapprox, ctranspose
 import StatsBase: sample, pweights
+export outer, inner, sparse_spinallup_dm, sparse_spinalldown_dm, ghz, measure
+
+isapprox(x::Ket, y::Ket) = (x.basis == y.basis) && x.data ≈ y.data
+isapprox(x::Bra, y::Bra) = (x.basis == y.basis) && x.data ≈ y.data
 
 ctranspose(op::QuantumOptics.particle.FFTKets) = dagger(op::QuantumOptics.particle.FFTKets)
 ctranspose(op::QuantumOptics.particle.FFTOperators) = dagger(op::QuantumOptics.particle.FFTOperators)
@@ -65,7 +70,7 @@ Measure nth qubit w.r.t standard basis.
 
 Return outcome (0 or 1) and post-meamurement state
 """
-function measure(state, n)
+function measure(state::Ket, n::Int=1)
     nqubit = state.basis.shape |> length
     mops = [identityoperator(SpinBasis(1//2)) for i in 1:nqubit]
     mops[n] = spinup(SpinBasis(1//2)) |> dm |> sparse
