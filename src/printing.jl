@@ -35,7 +35,8 @@ function _md(x::Union{Ket,Bra})
         x = permutesystems(x, perm)
     end
     data = x.data
-    braket = Dict(Ket=>["|", "\\rangle"], Bra=>["\\langle", "|"])[typeof(x)]
+    # braket = Dict(Ket=>["|", "\\rangle"], Bra=>["\\langle", "|"])[typeof(x)]
+    braket = ifelse(typeof(x) == Ket, ["|", "\\rangle"], ["\\langle", "|"])
 
     str = "$(braket[1]) \\psi $(braket[2]) = "
     for (idx, ent) in enumerate(data)
@@ -76,7 +77,8 @@ function _aa(x::Union{Ket,Bra})
         x = permutesystems(x, perm)
     end
     data = x.data
-    braket = Dict(Ket=>["|", ">"], Bra=>["<", "|"])[typeof(x)]
+    # braket = Dict(Ket=>["|", ">"], Bra=>["<", "|"])[typeof(x)]
+    braket = ifelse(typeof(x) == Ket, ["|", ">"], ["<", "|"])
 
     str = "$(braket[1])ψ$(braket[2]) = "
     for (idx, ent) in enumerate(data)
