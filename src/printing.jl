@@ -1,6 +1,6 @@
 export tex
 
-function tex(x::Union{Ket,Bra})
+function tex(x::Union{Ket,Bra}, msg::AbstractString="")
     nq = length(x.basis.shape)
     isfirstterm = true
     perm = collect(reverse(1:nq))
@@ -37,7 +37,9 @@ function tex(x::Union{Ket,Bra})
         end
     end
     try
-        display("text/latex", "\$\$" * str * "\$\$") # for IJulia
+        msg != "" && display(msg)
+        # display("text/latex", "\$\$" * str * "\$\$") # for IJulia
+        display("text/latex", "\$" * str * "\$") # for IJulia
     catch
         println("\$\$" * str * "\$\$") # for REPL
     end
