@@ -40,4 +40,9 @@ include("basic.jl")
 include("gates.jl")
 include("printing.jl")
 
+
+module ShortNames
+       using ..QuantumInformation
+       include("shortnames.jl")
+end # ShortNames
 end # module
