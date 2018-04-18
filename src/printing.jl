@@ -13,21 +13,27 @@ julia> cnot() * (hadamard() ⊗ id) * qubit("00") |> tex
 |ψ> = 0.707|00> + 0.707|11>
 ```
 """
-function tex(x::Union{Ket,Bra}, msg::AbstractString="")
+function tex(x::Union{Ket,Bra}, statename::String="\\psi")
     try
-        msg != "" && display(msg)
-        # display("text/latex", "\$\$" * str * "\$\$") # for IJulia
-        str = _md(x)
+        str = _md(x, statename)
         display("text/latex", "\$" * str * "\$") # for IJulia
     catch
-        # println("\$\$" * str * "\$\$") # for REPL
+        str = _aa(x)
+        println(str) # for REPL
+    end
+end
+function tex(x::T, statename::String="\\mathrm{Operator}") where T <: Operator
+    try
+        str = _md(x, statename)
+        display("text/latex", "\$" * str * "\$") # for IJulia
+    catch
         str = _aa(x)
         println(str) # for REPL
     end
 end
 
 "make markdown from Bra and Ket"
-function _md(x::Union{Ket,Bra})
+function _md(x::Union{Ket,Bra}, statename::String)
     nq = length(x.basis.shape)
     isfirstterm = true
     perm = collect(reverse(1:nq))
@@ -35,10 +41,9 @@ function _md(x::Union{Ket,Bra})
         x = permutesystems(x, perm)
     end
     data = x.data
-    # braket = Dict(Ket=>["|", "\\rangle"], Bra=>["\\langle", "|"])[typeof(x)]
     braket = ifelse(typeof(x) == Ket, ["|", "\\rangle"], ["\\langle", "|"])
 
-    str = "$(braket[1]) \\psi $(braket[2]) = "
+    str = "$(braket[1]) $(statename) $(braket[2]) = "
     for (idx, ent) in enumerate(data)
         if ent ≈ 1
             value = 1.0
@@ -62,6 +67,50 @@ function _md(x::Union{Ket,Bra})
                     str *= "+$(n2s(ent)) $(braket[1]) $(bin(idx-1, nq)) $(braket[2])"
                 end
             end
+        end
+    end
+
+    return str
+end
+
+"make markdown from Operator"
+function _md(x::T, statename::String) where T <: Operator
+    nq = x.basis_l |> length |> log2 |> Int
+    isfirstterm = true
+    perm = collect(reverse(1:nq))
+    if nq != 1
+        x = permutesystems(x, perm)
+    end
+    data = x.data
+
+    str = "$(statename) = "
+    for i in 1:2^nq
+        for j in 1:2^nq
+            ent = data[i,j]
+            if ent ≈ 1
+                value = 1.0
+            else
+                value = ent
+            end
+            if !(ent ≈ 0)
+                if isfirstterm
+                    isfirstterm = false
+                    if value == 1.
+                        str *= "| $(bin(i-1, nq)) \\rangle \\langle $(bin(j-1, nq)) |"
+                    else
+                        str *= "$(n2s(ent)) | $(bin(i-1, nq)) \\rangle \\langle $(bin(j-1, nq)) |"
+                    end
+                else
+                    if value == 1.0
+                        str *= "+ | $(bin(i-1, nq)) \\rangle \\langle $(bin(j-1, nq)) |"
+                    elseif n2s(ent)[1] == '-'
+                        str *= "$(n2s(ent)) | $(bin(i-1, nq)) \\rangle \\langle $(bin(j-1, nq)) |"
+                    else
+                        str *= "+$(n2s(ent)) | $(bin(i-1, nq)) \\rangle \\langle $(bin(j-1, nq)) |"
+                    end
+                end
+            end
+
         end
     end
 
@@ -104,6 +153,49 @@ function _aa(x::Union{Ket,Bra})
                     str *= " + $(n2s(ent))$(braket[1])$(bin(idx-1, nq))$(braket[2])"
                 end
             end
+        end
+    end
+
+    return str
+end
+"make markdown from Operator"
+function _aa(x::T) where T <: Operator
+    nq = x.basis_l |> length |> log2 |> Int
+    isfirstterm = true
+    perm = collect(reverse(1:nq))
+    if nq != 1
+        x = permutesystems(x, perm)
+    end
+    data = x.data
+
+    str = "Operator = "
+    for i in 1:2^nq
+        for j in 1:2^nq
+            ent = data[i,j]
+            if ent ≈ 1
+                value = 1.0
+            else
+                value = ent
+            end
+            if !(ent ≈ 0)
+                if isfirstterm
+                    isfirstterm = false
+                    if value == 1.
+                        str *= "|$(bin(i-1, nq))><$(bin(j-1, nq))|"
+                    else
+                        str *= "$(n2s(ent)) |$(bin(i-1, nq))><$(bin(j-1, nq))|"
+                    end
+                else
+                    if value == 1.0
+                        str *= " + |$(bin(i-1, nq))><$(bin(j-1, nq))|"
+                    elseif n2s(ent)[1] == '-'
+                        str *= " $(n2s(ent)) |$(bin(i-1, nq))><$(bin(j-1, nq))|"
+                    else
+                        str *= " +$(n2s(ent)) |$(bin(i-1, nq))><$(bin(j-1, nq))|"
+                    end
+                end
+            end
+
         end
     end
 
