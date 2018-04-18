@@ -3,7 +3,6 @@ using Base.Test
 
 # write your own tests here
 # @test 1 == 2
-srand(2018)
 b = SpinBasis(1//2)
 up = spinup(b)
 down = spindown(b)
@@ -20,6 +19,12 @@ end
 for i in 1:10
     tmpr = rand(1:5)
     @test sparse_spinalldown_dm(tmpr) |> full == dm(basisstate(b^tmpr, 2^tmpr))
+end
+
+srand(2018)
+@test begin
+    outcome, state = measure(hadamard() * up, 1)
+    outcome == 1 && state ≈ down
 end
 
 @test sigmax() == sigmax(SpinBasis(1//2))
@@ -45,3 +50,34 @@ end
 @test cnot(3, 2, 3) == identityoperator(b) ⊗ (dm(up) ⊗ id + dm(down) ⊗ sigmax())
 @test cnot(3, 3, 2) == identityoperator(b) ⊗ (id ⊗ dm(up) + sigmax() ⊗ dm(down))
 @test toffoli() == (identityoperator(b^2) - sparse_spinalldown_dm(2)) ⊗ identityoperator(b) + sparse_spinalldown_dm(2) ⊗ sigmax()
+
+@test try
+   tex(up)
+   true
+catch
+   false
+end
+@test try
+   tex(up')
+   true
+catch
+   false
+end
+@test try
+   tex(hadamard() * up)
+   true
+catch
+   false
+end
+@test try
+   tex(sigmay() * up)
+   true
+catch
+   false
+end
+@test try
+   tex(sigmay() * hadamard() * up)
+   true
+catch
+   false
+end
