@@ -47,6 +47,7 @@ down = spindown(b)
 @test swap() == sparse(dm(qubit("00")) + outer(qubit("01"), qubit("10")) + outer(qubit("10"), qubit("01")) + dm(qubit("11")))
 @test SWAP() == swap()
 @test swap(3, [1,2]) == swap() ⊗ id()
+@test swap(3, [3,2]) == id() ⊗ swap()
 @test swap(3, [1,3]) == cnot(3, 1, 3) * cnot(3, 3, 1) * cnot(3, 1, 3)
 try swap(1, [1,2]) catch true end
 try swap(2, [1,1]) catch true end

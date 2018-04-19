@@ -328,6 +328,39 @@ SparseOperator(dim=8x8)
   [8, 8]  =  1.0+0.0im
 ```
 """
+# function swap(N::Int=2, targets::Vector{Int}=[1,2])
+#        if N < 2
+#               error("the number of qubits must be larger or equal to 2.")
+#        end
+#        if targets[1] == targets[2]
+#               error("target qubits mustn't be same.")
+#        end
+#        if length(targets) != 2
+#               error("the number of target qubits must be equal to 2")
+#        end
+#        x = spzeros(Complex{Float64}, 4, 4)
+#        x[1,1] = 1.
+#        x[3,2] = 1.
+#        x[2,3] = 1.
+#        x[4,4] = 1.
+#        basicswap = SparseOperator(SpinBasis(1//2)^2, x)
+#
+#        control, target = targets[1], targets[2]
+#        if N == 2
+#               return basicswap
+#        else
+#               perm = collect(1:N)
+#               targetpos = N
+#               state = identityoperator(SpinBasis(1//2)^(N-2)) ⊗ basicswap
+#               perm[control], perm[end-1] = perm[end-1], perm[control]
+#               if control == N
+#                      targetpos = N-1
+#               end
+#               perm[target], perm[targetpos] = perm[targetpos], perm[target]
+#
+#               return permutesystems(state, perm)
+#        end
+# end
 function swap(N::Int=2, targets::Vector{Int}=[1,2])
        if N < 2
               error("the number of qubits must be larger or equal to 2.")
@@ -345,18 +378,14 @@ function swap(N::Int=2, targets::Vector{Int}=[1,2])
        x[4,4] = 1.
        basicswap = SparseOperator(SpinBasis(1//2)^2, x)
 
-       control, target = targets[1], targets[2]
        if N == 2
               return basicswap
        else
               perm = collect(1:N)
-              targetpos = N
               state = identityoperator(SpinBasis(1//2)^(N-2)) ⊗ basicswap
-              perm[control], perm[end-1] = perm[end-1], perm[control]
-              if control == N
-                     targetpos = N-1
-              end
-              perm[target], perm[targetpos] = perm[targetpos], perm[target]
+              target1, target2 = ifelse(targets[1] < targets[2], (targets[1], targets[2]), (targets[2], targets[1]))
+              perm[target1], perm[end-1] = perm[end-1], perm[target1]
+              perm[target2], perm[end] = perm[end], perm[target2]
 
               return permutesystems(state, perm)
        end

@@ -59,9 +59,7 @@ function _md(x::Union{Ket,Bra}, statename::String)
                     str *= "$(n2s(ent)) $(braket[1]) $(bin(idx-1, nq)) $(braket[2])"
                 end
             else
-                if value == 1.0
-                    str *= "+ $(braket[1]) $(bin(idx-1, nq)) $(braket[2])"
-                elseif n2s(ent)[1] == '-'
+                if n2s(ent)[1] == '-'
                     str *= "$(n2s(ent)) $(braket[1]) $(bin(idx-1, nq)) $(braket[2])"
                 else
                     str *= "+$(n2s(ent)) $(braket[1]) $(bin(idx-1, nq)) $(braket[2])"
@@ -145,9 +143,7 @@ function _aa(x::Union{Ket,Bra})
                     str *= "$(n2s(ent))$(braket[1])$(bin(idx-1, nq))$(braket[2])"
                 end
             else
-                if value == 1.0
-                    str *= " + $(braket[1])$(bin(idx-1, nq))$(braket[2])"
-                elseif n2s(ent)[1] == '-'
+                if n2s(ent)[1] == '-'
                     str *= " $(n2s(ent))$(braket[1])$(bin(idx-1, nq))$(braket[2])"
                 else
                     str *= " + $(n2s(ent))$(braket[1])$(bin(idx-1, nq))$(braket[2])"
@@ -208,33 +204,27 @@ end
 
 number to string for tex function.
 """
-function n2s(x)
+function n2s(x::T) where T <: Complex
     str = ""
-    if typeof(x) <: Real
-        if x > zero(x)
-            str *= "$(x)"
+    str1, str2 = "", ""
+    if !(x.re ≈ 0)
+        str1 *= "$(round(x.re, 3))"
+    end
+    if !(x.im ≈ 0)
+        if x.im ≈ one(x.im)
+            str2 *= "i"
+        elseif -x.im ≈ one(x.im)
+            str2 *= "-i"
         else
-            str *= "$(x)"
+            str2 *= "$(round(x.im, 3))i"
         end
-    elseif typeof(x) <: Complex
-        str1, str2 = "", ""
-        if !(x.re ≈ 0)
-            str1 *= "$(round(x.re, 3))"
-        end
-        if !(x.im ≈ 0)
-            if x.im ≈ one(x.im)
-                str2 *= "i"
-            else
-                str2 *= "$(round(x.im, 3))i"
-            end
-        end
-        if !isempty(str1) && x.im > zero(x.im)
-            str2 = "+" * str2
-        end
-        str = str1 * str2
-        if !isempty(str1) && !isempty(str2)
-            str = "(" * str * ")"
-        end
+    end
+    if !isempty(str1) && x.im > zero(x.im)
+        str2 = "+" * str2
+    end
+    str = str1 * str2
+    if !isempty(str1) && !isempty(str2)
+        str = "(" * str * ")"
     end
     return str
 end

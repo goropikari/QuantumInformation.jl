@@ -11,6 +11,9 @@ down = spindown(b)
 @test full(sigmax()) ≈ sigmax()
 @test full(sigmax()) ≈ full(sigmax())
 
+@test sigmax()' == dagger(sigmax())
+@test full(sigmax())' == dagger(full(sigmax()))
+
 @test outer(spinup(b), spinup(b)) == spinup(b) ⊗ dagger(spinup(b))
 @test inner(spinup(b), spinup(b)) == dagger(spinup(b)) * spinup(b)
 n = 5; @test ghz(n) == (basisstate(b^n, 1) + basisstate(b^n, 2^n)) / sqrt(2)
@@ -29,6 +32,10 @@ srand(2018)
 @test begin
     outcome, state = measure(hadamard() * up, 1)
     outcome == 1 && state ≈ down
+end
+begin
+    @show outcome, state = measure(hadamard() * up, 1)
+    outcome == 0 && state ≈ up
 end
 
 @test qubit("010") == up ⊗ down ⊗ up
