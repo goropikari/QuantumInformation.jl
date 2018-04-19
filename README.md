@@ -1,9 +1,7 @@
 # QuantumInformation
 
 [![Build Status](https://travis-ci.org/goropikari/QuantumInformation.jl.svg?branch=master)](https://travis-ci.org/goropikari/QuantumInformation.jl)
-
 [![Coverage Status](https://coveralls.io/repos/goropikari/QuantumInformation.jl/badge.svg?branch=master&service=github)](https://coveralls.io/github/goropikari/QuantumInformation.jl?branch=master)
-
 [![codecov.io](http://codecov.io/github/goropikari/QuantumInformation.jl/coverage.svg?branch=master)](http://codecov.io/github/goropikari/QuantumInformation.jl?branch=master)
 
 This is unofficial extension of [QuantumOptics.jl](https://github.com/qojulia/QuantumOptics.jl).  
@@ -13,7 +11,7 @@ This is unofficial extension of [QuantumOptics.jl](https://github.com/qojulia/Qu
 
 **Example**
 - [Quantum teleportation](https://nbviewer.jupyter.org/github/goropikari/QuantumInformation.jl/blob/master/examples/quantum_teleportation.ipynb)
-
+- [LaTeX rendering](https://nbviewer.jupyter.org/github/goropikari/QuantumInformation.jl/blob/master/examples/latex.ipynb)
 
 By default, the matrix entries are printed by standard order,  `QuantumOptics.set_printing(standard_order=true)`.
 But the data itself are stored reversed order.  
