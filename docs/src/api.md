@@ -8,7 +8,7 @@ QuantumInformation.ghz
 QuantumInformation.outer
 QuantumInformation.inner
 QuantumInformation.measure
-QuantumInformation.parse_spinallup_dm
+QuantumInformation.sparse_spinallup_dm
 QuantumInformation.sparse_spinalldown_dm
 ```
 
