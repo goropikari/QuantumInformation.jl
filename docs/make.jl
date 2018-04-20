@@ -1,10 +1,10 @@
-using Documenter, QuantumInformation
+using Documenter, QuantumInformation, QuantumInformation.ShortNames
 
 makedocs(
     format=:html,
     sitename="QuantumInformation.jl",
     modules=[QuantumInformation],
-    pages=["index.md", "latex.md", "api.md"]
+    pages=["index.md", "example.md", "latex.md", "api.md"]
 )
 
 deploydocs(

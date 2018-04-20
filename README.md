@@ -1,11 +1,13 @@
 # QuantumInformation
 
 [![Build Status](https://travis-ci.org/goropikari/QuantumInformation.jl.svg?branch=master)](https://travis-ci.org/goropikari/QuantumInformation.jl)
+[![Build status](https://ci.appveyor.com/api/projects/status/e1r7f7i05myjnyg0?svg=true)](https://ci.appveyor.com/project/goropikari/quantuminformation-jl)
 [![Coverage Status](https://coveralls.io/repos/goropikari/QuantumInformation.jl/badge.svg?branch=master&service=github)](https://coveralls.io/github/goropikari/QuantumInformation.jl?branch=master)
 [![codecov.io](http://codecov.io/github/goropikari/QuantumInformation.jl/coverage.svg?branch=master)](http://codecov.io/github/goropikari/QuantumInformation.jl?branch=master)
 [![](https://img.shields.io/badge/docs-latest-blue.svg)](https://goropikari.github.io/QuantumInformation.jl/latest/)
 
 This is unofficial extension of [QuantumOptics.jl](https://github.com/qojulia/QuantumOptics.jl).  
+I imagine those who want to learn quantum computing use this package.  
 **Features**
  - Add some quantum gates for qubits (spin 1/2)
  - You can take complex conjugate transpose (dagger) by single-quote `'`.
@@ -25,10 +27,31 @@ Pkg.clone("https://github.com/goropikari/QuantumInformation.jl")
 ```
 
 # Usage
-Supported single qubit (spin 1/2) gates are following.
+## Simple example
+```julia
+julia> ψ = qubit("00")
+Ket(dim=4)
+  basis: [Spin(1/2) ⊗ Spin(1/2)]
+ 1.0+0.0im
+ 0.0+0.0im
+ 0.0+0.0im
+ 0.0+0.0im
 
+julia> ϕ = cnot() * (H() ⊗ id()) * ψ
+Ket(dim=4)
+  basis: [Spin(1/2) ⊗ Spin(1/2)]
+ 0.707107+0.0im
+      0.0+0.0im
+      0.0+0.0im
+ 0.707107+0.0im
 
-## Pauli matrix
+julia> tex(ϕ)
+|ψ> = 0.707|00> + 0.707|11>
+```
+
+## Quantum gates
+Supported quantum gates are following.
+### Pauli matrix
 ```julia
 julia> sigmax()
 SparseOperator(dim=2x2)
@@ -59,7 +82,7 @@ SparseOperator(dim=2x2)
   [1, 2]  =  1.0+0.0im
 ```
 
-## Hadamard
+### Hadamard
 ```julia
 julia> hadamard()
 DenseOperator(dim=2x2)
@@ -76,7 +99,7 @@ DenseOperator(dim=4x4)
  0.5+0.0im  -0.5+0.0im  -0.5+0.0im   0.5-0.0im
 ```
 
-## S gate
+### S gate
 ```julia
  julia> sgate()
 SparseOperator(dim=2x2)
@@ -91,7 +114,7 @@ SparseOperator(dim=2x2)
   [2, 2]  =  0.0-1.0im
 ```
 
-## T gate
+### T gate
 ```julia
 julia> tgate()
 SparseOperator(dim=2x2)
@@ -106,7 +129,7 @@ SparseOperator(dim=2x2)
   [2, 2]  =  0.707107-0.707107im
 ```
 
-## Phase shift
+### Phase shift
 ```julia
 julia> phaseshift(π/3)
 SparseOperator(dim=2x2)
@@ -115,7 +138,7 @@ SparseOperator(dim=2x2)
   [2, 2]  =  0.5+0.866025im
 ```
 
-## CNOT gate
+### CNOT gate
 ```julia
 julia> cnot()
 SparseOperator(dim=4x4)
@@ -139,7 +162,7 @@ SparseOperator(dim=8x8)
 ```
 
 
-## Toffoli gate
+### Toffoli gate
 ![toffoli](./docs/pictures/toffoli.png)
 ```julia
 julia> toffoli()
@@ -178,7 +201,7 @@ SparseOperator(dim=16x16)
   [14, 16]  =  1.0+0.0im
 ```
 
-## multi-controlled gate
+### multi-controlled gate
 ![control](./docs/pictures/controls.png)
 ```julia
 julia> nqubits = 5;

@@ -2,6 +2,9 @@ export hadamard, sgate, sdggate, tgate, tdggate, phaseshift, singleunitary,
        controlsgate, cnot, toffoli, swap
 
 """
+---
+       sigmax()
+
 ```math
 \\sigma_x = \\begin{bmatrix}
        0 & 1 \\\\
@@ -12,6 +15,9 @@ export hadamard, sgate, sdggate, tgate, tdggate, phaseshift, singleunitary,
 sigmax() = sigmax(SpinBasis(1//2))
 
 """
+---
+       sigmay()
+
 ```math
 \\sigma_y = \\begin{bmatrix}
        0 & -i \\\\
@@ -22,6 +28,9 @@ sigmax() = sigmax(SpinBasis(1//2))
 sigmay() = sigmay(SpinBasis(1//2))
 
 """
+---
+       sigmaz()
+
 ```math
 \\sigma_z = \\begin{bmatrix}
        1 & 0 \\\\
@@ -32,6 +41,9 @@ sigmay() = sigmay(SpinBasis(1//2))
 sigmaz() = sigmaz(SpinBasis(1//2))
 
 """
+---
+       sigmam()
+
 ```math
 \\sigma_- = | 1 \\rangle \\langle 0 | = \\begin{bmatrix}
        0 & 0 \\\\
@@ -42,6 +54,9 @@ sigmaz() = sigmaz(SpinBasis(1//2))
 sigmam() = sigmam(SpinBasis(1//2))
 
 """
+---
+       sigmap()
+
 ```math
 \\sigma_+ = | 0 \\rangle \\langle 1 | = \\begin{bmatrix}
        0 & 1 \\\\

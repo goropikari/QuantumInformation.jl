@@ -4,6 +4,7 @@ down = spindown(b)
 # id()= identityoperator(b)
 
 @test id() == identityoperator(b)
+@test id(3) == identityoperator(b) ⊗ identityoperator(b) ⊗ identityoperator(b)
 @test sigmax() == sigmax(SpinBasis(1//2))
 @test X() == sigmax()
 @test sigmay() == sigmay(SpinBasis(1//2))

@@ -6,6 +6,7 @@ cnot() * (H() ⊗ id()) * qubit("00")
 ```
 
 **IJulia**
+
 $| \psi \rangle = 0.707 | 00 \rangle+0.707 | 11 \rangle$
 
 

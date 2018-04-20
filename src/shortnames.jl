@@ -1,4 +1,11 @@
-id() = identityoperator(SpinBasis(1//2))
+"""
+    id(n=1)
+
+Identity operator for n qubits system.
+"""
+function id(n::Int=1)
+    return identityoperator(SpinBasis(1//2)^n)
+end
 const X = sigmax
 const Y = sigmay
 const Z = sigmaz
