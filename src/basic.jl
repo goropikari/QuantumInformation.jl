@@ -20,8 +20,20 @@ ctranspose(x::QuantumOptics.states.Ket) = dagger(x::QuantumOptics.states.Ket)
 ctranspose(x::QuantumOptics.states.Bra) = dagger(x::QuantumOptics.states.Bra)
 ctranspose(a::QuantumOptics.operators.Operator) = dagger(a::QuantumOptics.operators.Operator)
 
+"""
+    outer(x::Ket, y::Ket)
+
+Construct outer product from two kets, ``|x⟩⟨y|``.
+"""
 outer(x::QuantumOptics.states.Ket, y::QuantumOptics.states.Ket) = x ⊗ y'
+
+"""
+    inner(x::Ket, y::Ket)
+
+Calculate inner product from two kets, ``⟨x|y⟩``.
+"""
 inner(x::QuantumOptics.states.Ket, y::QuantumOptics.states.Ket) = x' * y
+
 
 """
     qubit(x)
@@ -61,7 +73,7 @@ end
 
 n qubits all up state density matrix
 ```math
-| 0 \\rangle^{\\otimes n}
+| 0 \\rangle \\langle 0 |^{\\otimes n}
 ```
 """
 function sparse_spinallup_dm(n::Int)
@@ -73,9 +85,9 @@ end
 """
     sparse_spinalldown_dm(n)
 
-n qubits all up state density matrix
+n qubits all down state density matrix
 ```math
-| 1 \\rangle^{\\otimes n}
+| 1 \\rangle \\langle 1 |^{\\otimes n}
 ```
 """
 function sparse_spinalldown_dm(n::Int)

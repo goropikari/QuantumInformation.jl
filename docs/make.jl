@@ -4,7 +4,7 @@ makedocs(
     format=:html,
     sitename="QuantumInformation.jl",
     modules=[QuantumInformation],
-    pages=["index.md", "api.md"]
+    pages=["index.md", "latex.md", "api.md"]
 )
 
 deploydocs(

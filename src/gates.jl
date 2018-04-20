@@ -54,6 +54,7 @@ sigmap() = sigmap(SpinBasis(1//2))
 """
        hadamard(n::Int=1)
 
+n tensor product Hadamard gate.
 ```math
 H^{\\otimes n} = \\frac{1}{\\sqrt{2^n}} \\begin{bmatrix}
        1 & 1 \\\\
@@ -134,7 +135,7 @@ end
 """
        phaseshift(λ)
 
-Construct phase shift gate. `λ` must be real number.
+Phase shift gate. `λ` must be real number.
 This is equivalent to `singleunitary(0, 0, λ)`.
 ```math
 U(\\lambda) = \\begin{bmatrix}
@@ -173,7 +174,7 @@ end
 """
        controlsgate(N, controls, target, op)
 
-Construct multiple controlled gate.
+Multiple controlled gate.
 ![controlled gate](https://raw.githubusercontent.com/goropikari/QuantumInformation.jl/master/docs/pictures/controls.png)
 # Arguments
 - `N::Int`: the number of qubits.
@@ -236,6 +237,11 @@ end
 """
        cnot(N::Int=2, control::Int=1, target::Int=2)
 
+# Arguments
+- `N::Int`: the number of qubits.
+- `control::Int`: position of control qubit.
+- `target::Int`: position of target qubit.
+
 # Example
 ```julia
 julia> cnot()
@@ -266,7 +272,7 @@ cnot(N::Int=2, control::Int=1, target::Int=2) = controlsgate(N, [control], targe
 """
        toffoli(N::Int=3, controls::Vector{Int}=[1, 2], target::Int=3)
 
-Construct toffoli gate.
+Toffoli gate.
 ![toffoli gate](https://raw.githubusercontent.com/goropikari/QuantumInformation.jl/master/docs/pictures/toffoli.png)
 
 # Example

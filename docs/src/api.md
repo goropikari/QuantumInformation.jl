@@ -1,4 +1,7 @@
-# Basic functions
+# API
+
+## Basic functions
+
 ```@docs
 QuantumInformation.qubit
 QuantumInformation.ghz
@@ -9,7 +12,9 @@ QuantumInformation.parse_spinallup_dm
 QuantumInformation.sparse_spinalldown_dm
 ```
 
-# Quantum Gate
+
+## Quantum Gates
+
 ```@docs
 QuantumInformation.hadamard
 QuantumInformation.sgate
@@ -22,4 +27,11 @@ QuantumInformation.controlsgate
 QuantumInformation.cnot
 QuantumInformation.toffoli
 QuantumInformation.swap
+```
+
+
+## Printing
+
+```@docs
+QuantumInformation.tex
 ```

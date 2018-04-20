@@ -1,16 +1,31 @@
 export tex
 
 """
-    tex(x, [msg])
+    tex(x, statename="ψ") # for Ket and Bra
+    tex(x, statename="Operator") # for Operator
 
-LaTeX rendering for ket and bra.
+LaTeX (ASCII art) rendering for qubits system's Ket, Bra, and Operator in IJulia (REPL).
+You can change LHS state name by second argument.
 
-# Example
+# Example (REPL)
 ```julia
 julia> id = identityoperator(SpinBasis(1//2));
 
-julia> cnot() * (hadamard() ⊗ id) * qubit("00") |> tex
+julia> ψ = cnot() * (hadamard() ⊗ id) * qubit("00")
+
+julia> tex(ψ)
 |ψ> = 0.707|00> + 0.707|11>
+
+julia> dm(ψ)
+DenseOperator(dim=4x4)
+  basis: [Spin(1/2) ⊗ Spin(1/2)]
+ 0.5+0.0im  0.0+0.0im  0.0+0.0im  0.5+0.0im
+ 0.0+0.0im  0.0+0.0im  0.0+0.0im  0.0+0.0im
+ 0.0+0.0im  0.0+0.0im  0.0+0.0im  0.0+0.0im
+ 0.5+0.0im  0.0+0.0im  0.0+0.0im  0.5+0.0im
+
+julia> dm(ψ) |> tex
+Operator = 0.5 |00><00| +0.5 |00><11| +0.5 |11><00| +0.5 |11><11|
 ```
 """
 function tex(x::Union{Ket,Bra}, statename::String="\\psi")
