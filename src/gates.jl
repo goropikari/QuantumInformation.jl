@@ -1,7 +1,6 @@
 export hadamard, sgate, sdggate, tgate, tdggate, phaseshift, singleunitary,
        controlsgate, cnot, toffoli, swap
 
-# quantum circuit gates
 """
 ```math
 \\sigma_x = \\begin{bmatrix}
@@ -133,9 +132,10 @@ function tdggate()
 end
 
 """
-       phaseshift(λ::Real)
+       phaseshift(λ)
 
-phase shift gate
+Construct phase shift gate. `λ` must be real number.
+This is equivalent to `singleunitary(0, 0, λ)`.
 ```math
 U(\\lambda) = \\begin{bmatrix}
        1 & 0 \\\\
@@ -153,6 +153,7 @@ end
 """
        singleunitary(θ, ϕ, λ)
 
+Single qubit unitary gate.
 ```math
 U(\\theta, \\phi, \\lambda) = \\begin{bmatrix}
        \\cos(\\theta/2) & -e^{i \\lambda}\\sin(\\theta/2) \\\\
@@ -170,11 +171,18 @@ function singleunitary(θ, ϕ, λ)
 end
 
 """
-       controlsgate(N::Int, controls::Vector{Int}, target::Int, op::Operator)
+       controlsgate(N, controls, target, op)
 
-multi-controlled gate.
+Construct multiple controlled gate.
+![controlled gate](https://raw.githubusercontent.com/goropikari/QuantumInformation.jl/master/docs/pictures/controls.png)
+# Arguments
+- `N::Int`: the number of qubits.
+- `controls::Vector{Int}`: list of controlled qubit positions.
+- `target::Int`: position of target qubit.
+- `op::Operator`: Operator that acts on target qubit.
+
 # Example
-```julia
+```jldoctest
 julia> nqubits, controls, target, op = 3, [1, 2], 3, sigmax();
 
 julia> controlsgate(nqubits, controls, target, op) # equivalent to toffoli gate
@@ -258,6 +266,9 @@ cnot(N::Int=2, control::Int=1, target::Int=2) = controlsgate(N, [control], targe
 """
        toffoli(N::Int=3, controls::Vector{Int}=[1, 2], target::Int=3)
 
+Construct toffoli gate.
+![toffoli gate](https://raw.githubusercontent.com/goropikari/QuantumInformation.jl/master/docs/pictures/toffoli.png)
+
 # Example
 ```julia
 julia> toffoli() # equivalent to  toffoli(3, [1,2], 3)
@@ -328,39 +339,6 @@ SparseOperator(dim=8x8)
   [8, 8]  =  1.0+0.0im
 ```
 """
-# function swap(N::Int=2, targets::Vector{Int}=[1,2])
-#        if N < 2
-#               error("the number of qubits must be larger or equal to 2.")
-#        end
-#        if targets[1] == targets[2]
-#               error("target qubits mustn't be same.")
-#        end
-#        if length(targets) != 2
-#               error("the number of target qubits must be equal to 2")
-#        end
-#        x = spzeros(Complex{Float64}, 4, 4)
-#        x[1,1] = 1.
-#        x[3,2] = 1.
-#        x[2,3] = 1.
-#        x[4,4] = 1.
-#        basicswap = SparseOperator(SpinBasis(1//2)^2, x)
-#
-#        control, target = targets[1], targets[2]
-#        if N == 2
-#               return basicswap
-#        else
-#               perm = collect(1:N)
-#               targetpos = N
-#               state = identityoperator(SpinBasis(1//2)^(N-2)) ⊗ basicswap
-#               perm[control], perm[end-1] = perm[end-1], perm[control]
-#               if control == N
-#                      targetpos = N-1
-#               end
-#               perm[target], perm[targetpos] = perm[targetpos], perm[target]
-#
-#               return permutesystems(state, perm)
-#        end
-# end
 function swap(N::Int=2, targets::Vector{Int}=[1,2])
        if N < 2
               error("the number of qubits must be larger or equal to 2.")
