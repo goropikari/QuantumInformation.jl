@@ -57,11 +57,67 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "api.html#QuantumInformation.qubit",
+    "page": "API",
+    "title": "QuantumInformation.qubit",
+    "category": "function",
+    "text": "qubit(x)\n\nPrepare n-qubit state from binary.\n\nExample\n\njulia> qubit(\"010\")\nKet(dim=8)\n  basis: [Spin(1/2) ⊗ Spin(1/2) ⊗ Spin(1/2)]\n 0.0+0.0im\n 0.0+0.0im\n 1.0+0.0im\n 0.0+0.0im\n 0.0+0.0im\n 0.0+0.0im\n 0.0+0.0im\n 0.0+0.0im\n\n\n\n"
+},
+
+{
+    "location": "api.html#QuantumInformation.ghz",
+    "page": "API",
+    "title": "QuantumInformation.ghz",
+    "category": "function",
+    "text": "   ghz(n)\n\nn qubits GHZ(Greenberger–Horne–Zeilinger) state\n\n mathrmGHZ rangle = frac 0 rangle^otimes n +  1 rangle^otimes nsqrt2\n\nExample\n\njulia> n = 3;\n\njulia> ghz(n)\nKet(dim=8)\n  basis: [Spin(1/2) ⊗ Spin(1/2) ⊗ Spin(1/2)]\n 0.707107+0.0im\n      0.0+0.0im\n      0.0+0.0im\n      0.0+0.0im\n      0.0+0.0im\n      0.0+0.0im\n      0.0+0.0im\n 0.707107+0.0im\n\n\n\n"
+},
+
+{
+    "location": "api.html#QuantumInformation.outer",
+    "page": "API",
+    "title": "QuantumInformation.outer",
+    "category": "function",
+    "text": "outer(x::Ket, y::Ket)\n\nConstruct outer product from two kets, xy.\n\n\n\n"
+},
+
+{
+    "location": "api.html#QuantumInformation.inner",
+    "page": "API",
+    "title": "QuantumInformation.inner",
+    "category": "function",
+    "text": "inner(x::Ket, y::Ket)\n\nCalculate inner product from two kets, xy.\n\n\n\n"
+},
+
+{
+    "location": "api.html#QuantumInformation.measure",
+    "page": "API",
+    "title": "QuantumInformation.measure",
+    "category": "function",
+    "text": "measure(state, n)\n\nProjective measurement with standard basis. Measure n th qubit w.r.t standard basis.\n\nReturn outcome (0 or 1) and post-meamurement state\n\n\n\n"
+},
+
+{
+    "location": "api.html#QuantumInformation.sparse_spinallup_dm",
+    "page": "API",
+    "title": "QuantumInformation.sparse_spinallup_dm",
+    "category": "function",
+    "text": "sparse_spinallup_dm(n)\n\nn qubits all up state density matrix\n\n 0 rangle langle 0 ^otimes n\n\n\n\n"
+},
+
+{
+    "location": "api.html#QuantumInformation.sparse_spinalldown_dm",
+    "page": "API",
+    "title": "QuantumInformation.sparse_spinalldown_dm",
+    "category": "function",
+    "text": "sparse_spinalldown_dm(n)\n\nn qubits all down state density matrix\n\n 1 rangle langle 1 ^otimes n\n\n\n\n"
+},
+
+{
     "location": "api.html#Basic-functions-1",
     "page": "API",
     "title": "Basic functions",
     "category": "section",
-    "text": "QuantumInformation.qubit\nQuantumInformation.ghz\nQuantumInformation.outer\nQuantumInformation.inner\nQuantumInformation.measure\nQuantumInformation.parse_spinallup_dm\nQuantumInformation.sparse_spinalldown_dm"
+    "text": "QuantumInformation.qubit\nQuantumInformation.ghz\nQuantumInformation.outer\nQuantumInformation.inner\nQuantumInformation.measure\nQuantumInformation.sparse_spinallup_dm\nQuantumInformation.sparse_spinalldown_dm"
 },
 
 {
