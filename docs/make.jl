@@ -4,7 +4,8 @@ makedocs(
     format=:html,
     sitename="QuantumInformation.jl",
     modules=[QuantumInformation],
-    pages=["index.md"])
+    pages=["index.md", "api.md"]
+)
 
 deploydocs(
     repo="github.com/goropikari/QuantumInformation.jl.git",
@@ -12,4 +13,5 @@ deploydocs(
     target="build",
     osname = "linux",
     deps=nothing,
-    make=nothing)
+    make=nothing
+)
