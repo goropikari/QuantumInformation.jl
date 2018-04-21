@@ -50,7 +50,7 @@ Ket(dim=4)
  0.707107+0.0im
 
 julia> tex(ϕ) # print braket form.
-|ψ> = 0.707|00> + 0.707|11>
+|ψ⟩ = 0.707|00⟩ + 0.707|11⟩
 ```
 
 ## Quantum gates
