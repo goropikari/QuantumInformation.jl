@@ -30,6 +30,8 @@ export Basis                  , basis                   , logarithmic_negativity
 export outer,
        inner,
        qubit,
+       qudit,
+       quxit,
        sparse_spinallup_dm,
        sparse_spinalldown_dm,
        ghz,

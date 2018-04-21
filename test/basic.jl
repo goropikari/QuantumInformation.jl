@@ -40,3 +40,5 @@ end
 
 @test qubit("010") == up ⊗ down ⊗ up
 @test qubit("010")' == dagger(qubit("010"))
+@test qudit("012", 3) == basisstate(NLevelBasis(3), 1) ⊗ basisstate(NLevelBasis(3), 2) ⊗ basisstate(NLevelBasis(3), 3)
+@test quxit("012", [2,2,3]) == basisstate(NLevelBasis(2), 1) ⊗ basisstate(NLevelBasis(2), 2) ⊗ basisstate(NLevelBasis(3), 3)

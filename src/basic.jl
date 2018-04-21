@@ -56,15 +56,66 @@ Ket(dim=8)
 """
 function qubit(x::String)
     nq = length(x)
-    ar = split(x, "")
+    ar = parse.(Int, split(x, "")) + 1
     basis = SpinBasis(1//2)
-    up, down = spinup(basis), spindown(basis)
+    return tensor( basisstate.(basis, ar)... )
+end
 
-    function bin2state(x)
-        ifelse( x == "0", up, down )
-    end
+"""
+    qudit(x, dim)
 
-    return tensor( bin2state.(ar)... )
+Prepare n-qudit state
+
+# Example
+```
+julia> qudit("010", 3)
+Ket(dim=27)
+  basis: [NLevel(N=3) ⊗ NLevel(N=3) ⊗ NLevel(N=3)]
+ 0.0+0.0im
+ 0.0+0.0im
+ 0.0+0.0im
+ 1.0+0.0im
+    ⋮
+ 0.0+0.0im
+ 0.0+0.0im
+ 0.0+0.0im
+
+ julia> qudit("010", 3) |> tex
+|ψ⟩ = |010⟩
+```
+"""
+function qudit(x::String, dim::Int)
+    nq = length(x)
+    ar = parse.(Int, split(x, "")) + 1
+    basis = NLevelBasis(dim)
+    return tensor( nlevelstate.(basis, ar)... )
+end
+
+"""
+    quxit(x::String, dims::Vector{Int})
+
+Prepare a composite state which the dimension of i th system is `dims[i]`.
+
+# Example
+```
+julia> quxit("021", [2,3,2])
+Ket(dim=12)
+  basis: [NLevel(N=2) ⊗ NLevel(N=3) ⊗ NLevel(N=2)]
+ 0.0+0.0im
+ 0.0+0.0im
+ 0.0+0.0im
+ 0.0+0.0im
+    ⋮
+ 0.0+0.0im
+ 1.0+0.0im
+ 0.0+0.0im
+```
+"""
+function quxit(x::String, dims::Vector{Int})
+    @assert length(x) == length(dims)
+    nq = length(x)
+    ar = parse.(Int, split(x, "")) + 1
+    return tensor(basisstate.(NLevelBasis.(dims), ar)...)
 end
 
 """

@@ -4,6 +4,8 @@
 
 ```@docs
 QuantumInformation.qubit
+QuantumInformation.qudit
+QuantumInformation.quxit
 QuantumInformation.ghz
 QuantumInformation.outer
 QuantumInformation.inner
