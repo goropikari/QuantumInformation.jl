@@ -16,7 +16,7 @@ QuantumInformation.sparse_spinalldown_dm
 ## Quantum Gates
 
 ```@docs
-QuantumInformation.id
+QuantumInformation.ShortNames.id
 QuantumInformation.sigmax
 QuantumInformation.sigmay
 QuantumInformation.sigmaz

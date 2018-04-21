@@ -1,4 +1,3 @@
-using QuantumInformation
 using QuantumInformation.ShortNames
 using Base.Test
 

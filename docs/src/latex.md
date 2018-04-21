@@ -2,7 +2,7 @@
 
 Qubit ( SpinBasis(1//2) ) state can be rendered by MathJax(ASCII art) on IJulia(REPL).
 ```julia
-cnot() * (H() ⊗ id()) * qubit("00")
+cnot() * (H() ⊗ id()) * qubit("00") |> tex
 ```
 
 **IJulia**

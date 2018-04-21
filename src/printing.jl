@@ -9,12 +9,18 @@ You can change LHS state name by second argument.
 
 # Example (REPL)
 ```julia
-julia> id = identityoperator(SpinBasis(1//2));
+ulia> using QuantumInformation.ShortNames
 
-julia> ψ = cnot() * (hadamard() ⊗ id) * qubit("00")
+julia> ψ = cnot() * (H() ⊗ id()) * qubit("00")
+Ket(dim=4)
+  basis: [Spin(1/2) ⊗ Spin(1/2)]
+ 0.707107+0.0im
+      0.0+0.0im
+      0.0+0.0im
+ 0.707107+0.0im
 
 julia> tex(ψ)
-|ψ> = 0.707|00> + 0.707|11>
+|ψ⟩ = 0.707|00⟩ + 0.707|11⟩
 
 julia> dm(ψ)
 DenseOperator(dim=4x4)
@@ -25,7 +31,7 @@ DenseOperator(dim=4x4)
  0.5+0.0im  0.0+0.0im  0.0+0.0im  0.5+0.0im
 
 julia> dm(ψ) |> tex
-Operator = 0.5 |00><00| +0.5 |00><11| +0.5 |11><00| +0.5 |11><11|
+Operator = 0.5 |00⟩⟨00| +0.5 |00⟩⟨11| +0.5 |11⟩⟨00| +0.5 |11⟩⟨11|
 ```
 """
 function tex(x::Union{Ket,Bra}, statename::String="\\psi")
@@ -140,7 +146,7 @@ function _aa(x::Union{Ket,Bra})
     end
     data = x.data
     # braket = Dict(Ket=>["|", ">"], Bra=>["<", "|"])[typeof(x)]
-    braket = ifelse(typeof(x) == Ket, ["|", ">"], ["<", "|"])
+    braket = ifelse(typeof(x) == Ket, ["|", "⟩"], ["⟨", "|"])
 
     str = "$(braket[1])ψ$(braket[2]) = "
     for (idx, ent) in enumerate(data)
@@ -192,17 +198,17 @@ function _aa(x::T) where T <: Operator
                 if isfirstterm
                     isfirstterm = false
                     if value == 1.
-                        str *= "|$(bin(i-1, nq))><$(bin(j-1, nq))|"
+                        str *= "|$(bin(i-1, nq))⟩⟨$(bin(j-1, nq))|"
                     else
-                        str *= "$(n2s(ent)) |$(bin(i-1, nq))><$(bin(j-1, nq))|"
+                        str *= "$(n2s(ent)) |$(bin(i-1, nq))⟩⟨$(bin(j-1, nq))|"
                     end
                 else
                     if value == 1.0
-                        str *= " + |$(bin(i-1, nq))><$(bin(j-1, nq))|"
+                        str *= " + |$(bin(i-1, nq))⟩⟨$(bin(j-1, nq))|"
                     elseif n2s(ent)[1] == '-'
-                        str *= " $(n2s(ent)) |$(bin(i-1, nq))><$(bin(j-1, nq))|"
+                        str *= " $(n2s(ent)) |$(bin(i-1, nq))⟩⟨$(bin(j-1, nq))|"
                     else
-                        str *= " +$(n2s(ent)) |$(bin(i-1, nq))><$(bin(j-1, nq))|"
+                        str *= " +$(n2s(ent)) |$(bin(i-1, nq))⟩⟨$(bin(j-1, nq))|"
                     end
                 end
             end

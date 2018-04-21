@@ -1,4 +1,4 @@
-using Documenter, QuantumInformation, QuantumInformation.ShortNames
+using Documenter, QuantumInformation.ShortNames
 
 makedocs(
     format=:html,

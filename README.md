@@ -6,11 +6,13 @@
 [![codecov.io](http://codecov.io/github/goropikari/QuantumInformation.jl/coverage.svg?branch=master)](http://codecov.io/github/goropikari/QuantumInformation.jl?branch=master)
 [![](https://img.shields.io/badge/docs-latest-blue.svg)](https://goropikari.github.io/QuantumInformation.jl/latest/)
 
-This is unofficial extension of [QuantumOptics.jl](https://github.com/qojulia/QuantumOptics.jl).  
-I imagine those who want to learn quantum computing use this package.  
+QuantumInformation.jl is a package for learning quantum computation.  
+I add some functions to [QuantumOptics.jl](https://github.com/qojulia/QuantumOptics.jl).
+
 **Features**
  - Add some quantum gates for qubits (spin 1/2)
  - You can take complex conjugate transpose (dagger) by single-quote `'`.
+ - Print Ket, Bra, and Operator by MathJax(ASCIIart) in IJulia(REPL).
 
 **Example**
 - [Quantum teleportation](https://nbviewer.jupyter.org/github/goropikari/QuantumInformation.jl/blob/master/examples/quantum_teleportation.ipynb)
@@ -29,7 +31,9 @@ Pkg.clone("https://github.com/goropikari/QuantumInformation.jl")
 # Usage
 ## Simple example
 ```julia
-julia> ψ = qubit("00")
+julia> using QuantumInformation.ShortNames
+
+julia> ψ = qubit("00") # prepare |00⟩ state
 Ket(dim=4)
   basis: [Spin(1/2) ⊗ Spin(1/2)]
  1.0+0.0im
@@ -37,7 +41,7 @@ Ket(dim=4)
  0.0+0.0im
  0.0+0.0im
 
-julia> ϕ = cnot() * (H() ⊗ id()) * ψ
+julia> ϕ = cnot() * (H() ⊗ id()) * ψ # apply hadamard gate on first qubit and then apply CNOT gate.
 Ket(dim=4)
   basis: [Spin(1/2) ⊗ Spin(1/2)]
  0.707107+0.0im
@@ -45,12 +49,12 @@ Ket(dim=4)
       0.0+0.0im
  0.707107+0.0im
 
-julia> tex(ϕ)
+julia> tex(ϕ) # print braket form.
 |ψ> = 0.707|00> + 0.707|11>
 ```
 
 ## Quantum gates
-Supported quantum gates are following.
+Supported quantum gates are as follows.
 ### Pauli matrix
 ```julia
 julia> sigmax()

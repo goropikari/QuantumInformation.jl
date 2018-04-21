@@ -1,6 +1,5 @@
 import Base: isapprox, ctranspose
 import StatsBase: sample, pweights
-export outer, inner, qubit, sparse_spinallup_dm, sparse_spinalldown_dm, ghz, measure
 
 isapprox(x::Ket, y::Ket) = (x.basis == y.basis) && x.data ≈ y.data
 isapprox(x::Bra, y::Bra) = (x.basis == y.basis) && x.data ≈ y.data

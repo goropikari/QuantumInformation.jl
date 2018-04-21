@@ -1,3 +1,5 @@
+export id, X, Y, Z, H, S, Sdg, T, Tdg, U1, U2, U3, CU, CNOT, CCX, SWAP
+
 """
     id(n=1)
 
@@ -33,5 +35,3 @@ const CU = controlsgate
 const CNOT = cnot
 const CCX = toffoli
 const SWAP = swap
-
-export id, X, Y, Z, H, S, Sdg, T, Tdg, U1, U2, U3, CU, CNOT, CCX, SWAP
