@@ -173,7 +173,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API",
     "title": "QuantumOptics.spin.sigmax",
     "category": "function",
-    "text": "sigmax(b::SpinBasis)\n\nPauli _x operator for the given Spin basis.\n\n\n\n\n\n   sigmax()\n\nsigma_x = beginbmatrix\n       0  1 \n       1  0\nendbmatrix\n\n\n\n"
+    "text": "\n\n   sigmax()\n\nsigma_x = beginbmatrix\n       0  1 \n       1  0\nendbmatrix\n\n\n\nsigmax(b::SpinBasis)\n\nPauli _x operator for the given Spin basis.\n\n\n\n"
 },
 
 {
@@ -181,7 +181,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API",
     "title": "QuantumOptics.spin.sigmay",
     "category": "function",
-    "text": "sigmay(b::SpinBasis)\n\nPauli _y operator for the given Spin basis.\n\n\n\n\n\n   sigmay()\n\nsigma_y = beginbmatrix\n       0  -i \n       i  0\nendbmatrix\n\n\n\n"
+    "text": "\n\n   sigmay()\n\nsigma_y = beginbmatrix\n       0  -i \n       i  0\nendbmatrix\n\n\n\nsigmay(b::SpinBasis)\n\nPauli _y operator for the given Spin basis.\n\n\n\n"
 },
 
 {
@@ -189,7 +189,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API",
     "title": "QuantumOptics.spin.sigmaz",
     "category": "function",
-    "text": "sigmaz(b::SpinBasis)\n\nPauli _z operator for the given Spin basis.\n\n\n\n\n\n   sigmaz()\n\nsigma_z = beginbmatrix\n       1  0 \n       0  -1\nendbmatrix\n\n\n\n"
+    "text": "\n\n   sigmaz()\n\nsigma_z = beginbmatrix\n       1  0 \n       0  -1\nendbmatrix\n\n\n\nsigmaz(b::SpinBasis)\n\nPauli _z operator for the given Spin basis.\n\n\n\n"
 },
 
 {
@@ -197,7 +197,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API",
     "title": "QuantumOptics.spin.sigmap",
     "category": "function",
-    "text": "sigmap(b::SpinBasis)\n\nRaising operator _+ for the given Spin basis.\n\n\n\n\n\n   sigmap()\n\nsigma_+ =  0 rangle langle 1  = beginbmatrix\n       0  1 \n       0  0\nendbmatrix\n\n\n\n"
+    "text": "\n\n   sigmap()\n\nsigma_+ =  0 rangle langle 1  = beginbmatrix\n       0  1 \n       0  0\nendbmatrix\n\n\n\nsigmap(b::SpinBasis)\n\nRaising operator _+ for the given Spin basis.\n\n\n\n"
 },
 
 {
@@ -205,7 +205,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API",
     "title": "QuantumOptics.spin.sigmam",
     "category": "function",
-    "text": "sigmam(b::SpinBasis)\n\nLowering operator _- for the given Spin basis.\n\n\n\n\n\n   sigmam()\n\nsigma_- =  1 rangle langle 0  = beginbmatrix\n       0  0 \n       1  0\nendbmatrix\n\n\n\n"
+    "text": "\n\n   sigmam()\n\nsigma_- =  1 rangle langle 0  = beginbmatrix\n       0  0 \n       1  0\nendbmatrix\n\n\n\nsigmam(b::SpinBasis)\n\nLowering operator _- for the given Spin basis.\n\n\n\n"
 },
 
 {
