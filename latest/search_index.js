@@ -61,7 +61,7 @@ var documenterSearchIndex = {"docs": [
     "page": "LaTeX rendering",
     "title": "LaTeX rendering",
     "category": "section",
-    "text": "Qubit ( SpinBasis(1//2) ) state can be rendered by MathJax(ASCII art) on IJulia(REPL).cnot() * (H() ⊗ id()) * qubit(\"00\") |> texIJulia psi rangle = 0707  00 rangle+0707  11 rangleREPLjulia> cnot() * (H() ⊗ id()) * qubit(\"00\") |> tex\n|ψ> = 0.707|00> + 0.707|11>"
+    "text": "SpinBasis and NLevelBasis state can be rendered by MathJax(ASCII art) on IJulia(REPL) as follows.cnot() * (H() ⊗ id()) * qubit(\"00\") |> tex\ntex(dm(cnot() * (H() ⊗ id()) * qubit(\"00\")), \"\\\\rho\") # Second argument is LHS of the equation.IJulia psi rangle = 0707  00 rangle+0707  11 ranglerho = 05  00 rangle langle 00 +05  00 rangle langle 11 +05  11 rangle langle 00 +05  11 rangle langle 11 REPLjulia> cnot() * (H() ⊗ id()) * qubit(\"00\") |> tex\n|ψ> = 0.707|00> + 0.707|11>\n\njulia> tex(dm(cnot() * (H() ⊗ id()) * qubit(\"00\")), \"ρ\")\nρ = 0.5 |00⟩⟨00| +0.5 |00⟩⟨11| +0.5 |11⟩⟨00| +0.5 |11⟩⟨11|"
 },
 
 {
@@ -86,6 +86,22 @@ var documenterSearchIndex = {"docs": [
     "title": "QuantumInformation.qubit",
     "category": "function",
     "text": "qubit(x)\n\nPrepare n-qubit state from binary.\n\nExample\n\njulia> qubit(\"010\")\nKet(dim=8)\n  basis: [Spin(1/2) ⊗ Spin(1/2) ⊗ Spin(1/2)]\n 0.0+0.0im\n 0.0+0.0im\n 1.0+0.0im\n 0.0+0.0im\n 0.0+0.0im\n 0.0+0.0im\n 0.0+0.0im\n 0.0+0.0im\n\n\n\n"
+},
+
+{
+    "location": "api.html#QuantumInformation.qudit",
+    "page": "API",
+    "title": "QuantumInformation.qudit",
+    "category": "function",
+    "text": "qudit(x, dim)\n\nPrepare n-qudit state\n\nExample\n\njulia> qudit(\"010\", 3)\nKet(dim=27)\n  basis: [NLevel(N=3) ⊗ NLevel(N=3) ⊗ NLevel(N=3)]\n 0.0+0.0im\n 0.0+0.0im\n 0.0+0.0im\n 1.0+0.0im\n    ⋮\n 0.0+0.0im\n 0.0+0.0im\n 0.0+0.0im\n\n julia> qudit(\"010\", 3) |> tex\n|ψ⟩ = |010⟩\n\n\n\n"
+},
+
+{
+    "location": "api.html#QuantumInformation.quxit",
+    "page": "API",
+    "title": "QuantumInformation.quxit",
+    "category": "function",
+    "text": "quxit(x::String, dims::Vector{Int})\n\nPrepare a composite state which the dimension of i th system is dims[i].\n\nExample\n\njulia> quxit(\"021\", [2,3,2])\nKet(dim=12)\n  basis: [NLevel(N=2) ⊗ NLevel(N=3) ⊗ NLevel(N=2)]\n 0.0+0.0im\n 0.0+0.0im\n 0.0+0.0im\n 0.0+0.0im\n    ⋮\n 0.0+0.0im\n 1.0+0.0im\n 0.0+0.0im\n\n\n\n"
 },
 
 {
@@ -141,7 +157,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API",
     "title": "Basic functions",
     "category": "section",
-    "text": "QuantumInformation.qubit\nQuantumInformation.ghz\nQuantumInformation.outer\nQuantumInformation.inner\nQuantumInformation.measure\nQuantumInformation.sparse_spinallup_dm\nQuantumInformation.sparse_spinalldown_dm"
+    "text": "QuantumInformation.qubit\nQuantumInformation.qudit\nQuantumInformation.quxit\nQuantumInformation.ghz\nQuantumInformation.outer\nQuantumInformation.inner\nQuantumInformation.measure\nQuantumInformation.sparse_spinallup_dm\nQuantumInformation.sparse_spinalldown_dm"
 },
 
 {
@@ -157,7 +173,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API",
     "title": "QuantumOptics.spin.sigmax",
     "category": "function",
-    "text": "\n\n   sigmax()\n\nsigma_x = beginbmatrix\n       0  1 \n       1  0\nendbmatrix\n\n\n\nsigmax(b::SpinBasis)\n\nPauli _x operator for the given Spin basis.\n\n\n\n"
+    "text": "sigmax(b::SpinBasis)\n\nPauli _x operator for the given Spin basis.\n\n\n\n\n\n   sigmax()\n\nsigma_x = beginbmatrix\n       0  1 \n       1  0\nendbmatrix\n\n\n\n"
 },
 
 {
@@ -165,7 +181,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API",
     "title": "QuantumOptics.spin.sigmay",
     "category": "function",
-    "text": "\n\n   sigmay()\n\nsigma_y = beginbmatrix\n       0  -i \n       i  0\nendbmatrix\n\n\n\nsigmay(b::SpinBasis)\n\nPauli _y operator for the given Spin basis.\n\n\n\n"
+    "text": "sigmay(b::SpinBasis)\n\nPauli _y operator for the given Spin basis.\n\n\n\n\n\n   sigmay()\n\nsigma_y = beginbmatrix\n       0  -i \n       i  0\nendbmatrix\n\n\n\n"
 },
 
 {
@@ -173,7 +189,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API",
     "title": "QuantumOptics.spin.sigmaz",
     "category": "function",
-    "text": "\n\n   sigmaz()\n\nsigma_z = beginbmatrix\n       1  0 \n       0  -1\nendbmatrix\n\n\n\nsigmaz(b::SpinBasis)\n\nPauli _z operator for the given Spin basis.\n\n\n\n"
+    "text": "sigmaz(b::SpinBasis)\n\nPauli _z operator for the given Spin basis.\n\n\n\n\n\n   sigmaz()\n\nsigma_z = beginbmatrix\n       1  0 \n       0  -1\nendbmatrix\n\n\n\n"
 },
 
 {
@@ -181,7 +197,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API",
     "title": "QuantumOptics.spin.sigmap",
     "category": "function",
-    "text": "\n\n   sigmap()\n\nsigma_+ =  0 rangle langle 1  = beginbmatrix\n       0  1 \n       0  0\nendbmatrix\n\n\n\nsigmap(b::SpinBasis)\n\nRaising operator _+ for the given Spin basis.\n\n\n\n"
+    "text": "sigmap(b::SpinBasis)\n\nRaising operator _+ for the given Spin basis.\n\n\n\n\n\n   sigmap()\n\nsigma_+ =  0 rangle langle 1  = beginbmatrix\n       0  1 \n       0  0\nendbmatrix\n\n\n\n"
 },
 
 {
@@ -189,7 +205,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API",
     "title": "QuantumOptics.spin.sigmam",
     "category": "function",
-    "text": "\n\n   sigmam()\n\nsigma_- =  1 rangle langle 0  = beginbmatrix\n       0  0 \n       1  0\nendbmatrix\n\n\n\nsigmam(b::SpinBasis)\n\nLowering operator _- for the given Spin basis.\n\n\n\n"
+    "text": "sigmam(b::SpinBasis)\n\nLowering operator _- for the given Spin basis.\n\n\n\n\n\n   sigmam()\n\nsigma_- =  1 rangle langle 0  = beginbmatrix\n       0  0 \n       1  0\nendbmatrix\n\n\n\n"
 },
 
 {
@@ -293,7 +309,7 @@ var documenterSearchIndex = {"docs": [
     "page": "API",
     "title": "QuantumInformation.tex",
     "category": "function",
-    "text": "tex(x, statename=\"ψ\") # for Ket and Bra\ntex(x, statename=\"Operator\") # for Operator\n\nLaTeX (ASCII art) rendering for qubits system\'s Ket, Bra, and Operator in IJulia (REPL). You can change LHS state name by second argument.\n\nExample (REPL)\n\nulia> using QuantumInformation.ShortNames\n\njulia> ψ = cnot() * (H() ⊗ id()) * qubit(\"00\")\nKet(dim=4)\n  basis: [Spin(1/2) ⊗ Spin(1/2)]\n 0.707107+0.0im\n      0.0+0.0im\n      0.0+0.0im\n 0.707107+0.0im\n\njulia> tex(ψ)\n|ψ⟩ = 0.707|00⟩ + 0.707|11⟩\n\njulia> dm(ψ)\nDenseOperator(dim=4x4)\n  basis: [Spin(1/2) ⊗ Spin(1/2)]\n 0.5+0.0im  0.0+0.0im  0.0+0.0im  0.5+0.0im\n 0.0+0.0im  0.0+0.0im  0.0+0.0im  0.0+0.0im\n 0.0+0.0im  0.0+0.0im  0.0+0.0im  0.0+0.0im\n 0.5+0.0im  0.0+0.0im  0.0+0.0im  0.5+0.0im\n\njulia> dm(ψ) |> tex\nOperator = 0.5 |00⟩⟨00| +0.5 |00⟩⟨11| +0.5 |11⟩⟨00| +0.5 |11⟩⟨11|\n\n\n\n"
+    "text": "tex(x, statename=\"ψ\") # for Ket and Bra\ntex(x, statename=\"Operator\") # for Operator\n\nLaTeX (ASCII art) rendering for composite (SpinBasis and NLevelBasis) system\'s Ket, Bra, and Operator on IJulia (REPL). If you use this on IJulia, you can change LHS state name by second argument.\n\nExample (REPL)\n\nulia> using QuantumInformation.ShortNames\n\njulia> ψ = cnot() * (H() ⊗ id()) * qubit(\"00\")\nKet(dim=4)\n  basis: [Spin(1/2) ⊗ Spin(1/2)]\n 0.707107+0.0im\n      0.0+0.0im\n      0.0+0.0im\n 0.707107+0.0im\n\njulia> tex(ψ)\n|ψ⟩ = 0.707|00⟩ + 0.707|11⟩\n\njulia> dm(ψ)\nDenseOperator(dim=4x4)\n  basis: [Spin(1/2) ⊗ Spin(1/2)]\n 0.5+0.0im  0.0+0.0im  0.0+0.0im  0.5+0.0im\n 0.0+0.0im  0.0+0.0im  0.0+0.0im  0.0+0.0im\n 0.0+0.0im  0.0+0.0im  0.0+0.0im  0.0+0.0im\n 0.5+0.0im  0.0+0.0im  0.0+0.0im  0.5+0.0im\n\njulia> dm(ψ) |> tex\nOperator = 0.5 |00⟩⟨00| +0.5 |00⟩⟨11| +0.5 |11⟩⟨00| +0.5 |11⟩⟨11|\n\n\n\n"
 },
 
 {
